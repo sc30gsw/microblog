@@ -30,7 +30,7 @@ export default function getPostsData() {
 }
 
 // getStaticPathでreturn文で使用するpathを取得する
-export function getAllpostIds() {
+export function getAllPostIds() {
 	const fileNames = fs.readdirSync(postsDirectory);
 
 	return fileNames.map((fileName) => {
