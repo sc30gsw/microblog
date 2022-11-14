@@ -1,6 +1,8 @@
 import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -20,6 +22,7 @@ export default function getPostsData() {
 		// idとデータを返却
 		return {
 			id,
+			// .dataとすることでメタデータとしている
 			...matterResult.data,
 		};
 	});
@@ -37,4 +40,25 @@ export function getAllpostIds() {
 			},
 		};
 	});
+}
+
+// idに基づく投稿データを返却する
+export async function getPostData(id) {
+	// マークダウンファイルを文字列として読み取る
+	const fullPath = path.join(postsDirectory, `${id}.md`);
+	const fileContent = fs.readFileSync(fullPath, "utf8");
+
+	// マークダウンファイルのメタ情報を取得
+	const matterResult = matter(fileContent);
+
+	// .contentとすることでデータを文字列として取得する
+	// reamrkとremark-htmlで取得した文字列データをマークダウン（HTML）形式で出力する
+	const blogContent = await remark().use(html).process(matterResult.content);
+	const blogContentHTML = blogContent.toString();
+
+	return {
+		id,
+		blogContentHTML,
+		...matterResult.data,
+	};
 }
