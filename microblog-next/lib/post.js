@@ -53,6 +53,7 @@ export async function getPostData(id) {
 
 	// .contentとすることでデータを文字列として取得する
 	// reamrkとremark-htmlで取得した文字列データをマークダウン（HTML）形式で出力する
+	// awaitで非同期で処理する場合、function（関数）宣言の前にasyncをつける必要がある
 	const blogContent = await remark().use(html).process(matterResult.content);
 	const blogContentHTML = blogContent.toString();
 
