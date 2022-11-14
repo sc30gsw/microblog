@@ -1,6 +1,7 @@
 import Head from "next/head";
 import style from "./layout.module.css";
 import utilStyle from "../styles/utils.module.css";
+import Link from "next/link";
 
 const name = "Shin code";
 export const siteTitle = "Next.js blog";
@@ -30,6 +31,12 @@ function Layout({ children, home }) {
 			</header>
 			{/* propsを設定することで、import先でmainの中身を各自で設定できる */}
 			<main>{children}</main>
+			{/* Layoutの呼び出しがHomeでない場合 */}
+			{!home && (
+				<div>
+					<Link href="/">ホームへ戻る</Link>
+				</div>
+			)}
 		</div>
 	);
 }
