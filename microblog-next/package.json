@@ -18,6 +18,7 @@
     "remark-html": "^15.0.1"
   },
   "devDependencies": {
+    "next": "13.0.3",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.3"
   }
